@@ -1,0 +1,22 @@
+First load the Entropic Compression library.
+
+  require 'entrop'
+
+Initialize a binary random generator.
+
+  r = EntropicCompression::Rb.new(2, 22)
+
+Now lets look at some samples.
+
+  samples = Data('samples.yaml')
+
+  value = samples['A'].split("\n").join('')[0..21]
+
+  index = r.encode(value)
+
+  puts "#{index} #{r[index]} #{r.randomness?(index)}"
+  puts
+  r.zone(index).each do |i, v, e|
+    puts "#{i} #{v} #{e}"
+  end
+
